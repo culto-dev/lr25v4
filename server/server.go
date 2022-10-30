@@ -28,6 +28,7 @@ func handleSimple(w http.ResponseWriter, r *http.Request) {
 func StartServer() {
 	var pairs []controller.LocationHandlerPair
 	pairs = append(pairs, controller.LocationHandlerPair{ Location: "/", Handler: handleSimple })
+	pairs = append(pairs, controller.LocationHandlerPair{ Location: "/gog", Handler: controller.GetGoods })
 	controller.AllocateHandlers(pairs)
 	http.ListenAndServe(":8000", nil)
 }
