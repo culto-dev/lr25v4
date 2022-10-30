@@ -11,9 +11,16 @@ type LocationHandlerPair struct {
 }
 
 func GetGoods(w http.ResponseWriter, r *http.Request) {
-	parameters := r.URL.Query()
+	limit := r.URL.Query().Get("limit")
+	offset := r.URL.Query().Get("offset")
 
-	w.Write(utils.ObjectToJson(parameters))
+	w.Write(utils.ObjectToJson([]byte(limit + offset)))
+}
+
+func GetQueryParams(w http.ResponseWriter, r *http.Request) {
+	params := r.URL.Query()
+
+	w.Write(utils.ObjectToJson(params))
 }
 
 func AllocateHandlers(pairs []LocationHandlerPair) {

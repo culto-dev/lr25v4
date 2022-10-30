@@ -8,11 +8,11 @@ import (
 )
 
 // also works as below, but returns json keys capitalised
-
-//type Animal struct {
+//
+// type Animal struct {
 //	Name string
 //	Says string
-//}
+// }
 
 type Animal struct {
 	Name string `json:"name"`
@@ -27,8 +27,10 @@ func handleSimple(w http.ResponseWriter, r *http.Request) {
 
 func StartServer() {
 	var pairs []controller.LocationHandlerPair
-	pairs = append(pairs, controller.LocationHandlerPair{ Location: "/", Handler: handleSimple })
+	// wrong queries fallback to /
+	// pairs = append(pairs, controller.LocationHandlerPair{ Location: "/", Handler: handleSimple })
 	pairs = append(pairs, controller.LocationHandlerPair{ Location: "/gog", Handler: controller.GetGoods })
+	pairs = append(pairs, controller.LocationHandlerPair{ Location: "/return-query-params", Handler: controller.GetQueryParams })
 	controller.AllocateHandlers(pairs)
 	http.ListenAndServe(":8000", nil)
 }
