@@ -1,8 +1,10 @@
 package controller
 
 import (
+	"lr25v4_back/service"
 	"lr25v4_back/utils"
 	"net/http"
+	"strconv"
 )
 
 type LocationHandlerPair struct {
@@ -11,10 +13,10 @@ type LocationHandlerPair struct {
 }
 
 func GetGoods(w http.ResponseWriter, r *http.Request) {
-	limit := r.URL.Query().Get("limit")
-	offset := r.URL.Query().Get("offset")
+	limit, _ := strconv.Atoi(r.URL.Query().Get("limit"))
+	offset, _ := strconv.Atoi(r.URL.Query().Get("offset"))
 
-	w.Write(utils.ObjectToJson([]byte(limit + offset)))
+	w.Write(utils.ObjectToJson(service.GetGoods(limit, offset)))
 }
 
 func GetQueryParams(w http.ResponseWriter, r *http.Request) {

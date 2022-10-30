@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"lr25v4_back/config"
 	"lr25v4_back/controller"
 	"lr25v4_back/utils"
 	"net/http"
@@ -32,5 +33,5 @@ func StartServer() {
 	pairs = append(pairs, controller.LocationHandlerPair{ Location: "/gog", Handler: controller.GetGoods })
 	pairs = append(pairs, controller.LocationHandlerPair{ Location: "/return-query-params", Handler: controller.GetQueryParams })
 	controller.AllocateHandlers(pairs)
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe(fmt.Sprintf(":%s", config.PORT), nil)
 }
